@@ -1,31 +1,41 @@
-import React from 'react';
-import { gql, useQuery } from '@apollo/client';
+import React, { useEffect } from 'react';
+import { useQuery } from '@apollo/client';
 import CountryList from '../CountryList/CountryList';
 import './List.scss'
+import { COUNTRIES_QUERY } from '../../operations/countryQueries';
+import Search from '../Search/Search';
+import CountryForm from '../CountryForm/CountryForm';
 
+const layout = {
+  labelCol: {
+    span: 8,
+  },
+  wrapperCol: {
+    span: 16,
+  },
+};
+const tailLayout = {
+  wrapperCol: {
+    offset: 8,
+    span: 16,
+  },
+};
 
-export const COUNTRY_QUERY = gql`
-query Country($name: String) {
-  countries: Country(filter: {name_contains: $name}) {
-    _id
-    name
-    flag {
-      emoji
-      svgFile
-    }
-  }
-}
-
-`;
 
 export default function List() {
-    const { loading, error, data } = useQuery(COUNTRY_QUERY);
 
-    if (loading) return <p>Loading</p>;
-    if (error) return <p  role="alert">Error</p>;
+    const {loading, error, data} = useQuery(
+      COUNTRIES_QUERY
+    );
+
+    useEffect(() => {
+      console.log(data)
+    })
+
     return (
       <div data-testid="country-card" >
-        <CountryList countries={data ? data.countries : []} />
+        <Search  />
+        <CountryList countries={data.countries} />
       </div>
     )
 }
