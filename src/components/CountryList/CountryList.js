@@ -1,13 +1,8 @@
 import React from "react";
-import {useHistory} from 'react-router-dom';
 import './CountryList.scss';
 
-import { Card } from 'antd';
-import { selectedCountryVar } from "../../App";
-import useCountryService from '../../services/countryService'
 import CardCountry from "../CardCountry/CardCountry";
 
-const { Meta } = Card;
 
 export default function CountryList({ countries }) {
   

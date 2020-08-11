@@ -1,5 +1,4 @@
-import React, {useState, useEffect, Fragment, useContext} from 'react';
-import { selectedCountryVar, countriesVar, defaultCountriesVar} from '../App';
+import { selectedCountryVar, countriesVar, defaultCountriesVar} from '../cache'
 
 export default function useCountryService() {
 

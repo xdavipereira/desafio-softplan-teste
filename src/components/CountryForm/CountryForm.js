@@ -1,24 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { gql, useQuery, useLazyQuery } from '@apollo/client';
-import { countriesVar, selectedCountryVar } from '../../App';
-import { Form, Input, Button, Checkbox, Modal } from 'antd';
+import React, { useEffect } from 'react';
+import { useQuery } from '@apollo/client';
+import { countriesVar, selectedCountryVar } from '../../cache';
+import { Form, Input, Modal } from 'antd';
 import { SELECTED_COUNTRY_QUERY } from '../Detail/Detail';
 
 
-const layout = {
-  labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 16,
-  },
-};
-const tailLayout = {
-  wrapperCol: {
-    offset: 8,
-    span: 16,
-  },
-};
+
 
 
 

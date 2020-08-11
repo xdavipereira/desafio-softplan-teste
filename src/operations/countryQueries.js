@@ -1,4 +1,4 @@
-import { gql, useQuery, useLazyQuery } from '@apollo/client';
+import { gql} from '@apollo/client';
 
 export const COUNTRY_QUERY_SERVER = gql`
 query Country($name: String) {

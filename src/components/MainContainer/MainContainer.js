@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { gql, useQuery, useLazyQuery } from '@apollo/client';
-import CountryList from '../CountryList/CountryList';
-import { countriesVar } from '../../App';
+import React from 'react';
+import { useQuery, } from '@apollo/client';
 import { COUNTRY_QUERY_SERVER } from '../../operations/countryQueries';
-import { BrowserRouter, Route, Switch, Link} from 'react-router-dom'
+import { Route, Switch} from 'react-router-dom'
 import List from '../List/List';
 import Detail from '../Detail/Detail';
 import useCountryService from '../../services/countryService'
@@ -11,7 +9,7 @@ import useCountryService from '../../services/countryService'
 
 
 export default function MainContainer () {
-    const { loading, error, data} = useQuery(
+    const { loading, error} = useQuery(
       COUNTRY_QUERY_SERVER, {
         onCompleted: onQueryComplete
       }

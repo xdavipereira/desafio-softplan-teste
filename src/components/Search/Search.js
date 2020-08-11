@@ -1,8 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { gql, useQuery, useLazyQuery } from '@apollo/client';
-import CountryList from '../CountryList/CountryList';
-import { countriesVar } from '../../App';
-import { COUNTRY_QUERY_SERVER } from '../../operations/countryQueries';
+import React, { useState} from 'react';
 import useCountryService from '../../services/countryService';
 import { Input, Button } from 'antd';
 import "./Search.scss";

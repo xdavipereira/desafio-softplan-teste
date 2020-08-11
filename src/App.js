@@ -1,40 +1,11 @@
 import 'antd/dist/antd.css';
 import React from 'react';
-import { ApolloProvider, useQuery, makeVar } from '@apollo/client';
-import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { gql } from '@apollo/client';
-import List from './components/List/List';
-import { BrowserRouter, Route, Switch, Link} from 'react-router-dom'
+import { ApolloProvider } from '@apollo/client';
+import { ApolloClient } from '@apollo/client';
+import { BrowserRouter} from 'react-router-dom'
 import MainContainer from './components/MainContainer/MainContainer';
+import { cache } from './cache';
 
-export const defaultCountriesVar = makeVar([]);
-export const countriesVar = makeVar([]);
-export const selectedCountryVar = makeVar();
-
-
-export const cache = new InMemoryCache({
-  typePolicies: {
-    Query: {
-      fields: {
-        defaultCountries: {
-          read() {
-            return defaultCountriesVar();
-          }
-        },
-        countries: {
-          read() {
-            return countriesVar();
-          }
-        },
-        selectedCountry: {
-          read() {
-            return selectedCountryVar();
-          }
-        }
-      }
-    }
-  }
-});
 
 const client = new ApolloClient({
   uri: 'https://countries-274616.ew.r.appspot.com/',

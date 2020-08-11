@@ -3,7 +3,6 @@ import {useHistory} from 'react-router-dom';
 import './CardCountry.scss';
 
 import { Card } from 'antd';
-import { selectedCountryVar } from "../../App";
 import useCountryService from '../../services/countryService'
 
 const { Meta } = Card;
