@@ -4,43 +4,56 @@ import CountryList from '../CountryList/CountryList';
 import { countriesVar } from '../../App';
 import { COUNTRY_QUERY_SERVER } from '../../operations/countryQueries';
 import useCountryService from '../../services/countryService';
+import { Input, Button } from 'antd';
+import "./Search.scss";
+
+const { Search } = Input;
 
 
 
-export default function Search() {
-    const [loadCountries, { called, data, error }] = useLazyQuery(
-      COUNTRY_QUERY_SERVER, {
-          onCompleted: onCompletedQuery
-      }
-    );
-    
-    const [value, setValue] = useState("")
-  
+export default function SearchInput() {
+
     const {handleSearchCountries, handleSetCountries} = useCountryService();
 
-    function onCompletedQuery(data) {
-        countriesVar([...data.countries])
-    }
+    const [searchValue, setSearchValue] = useState("");
+
   
-    function handleClick() {
-      // loadCountries({variables: {name: value}})
+    function handleChangeCountries(value) {
       const countries = handleSearchCountries(value)
       handleSetCountries(countries)
     }
-    
-    
-    function clearSearch() {
-        setValue("");
-        const countries = handleSearchCountries("")
-        handleSetCountries(countries)
+
+    function handleClearSearch() {
+      setSearchValue("");
+      const countries = handleSearchCountries("")
+      handleSetCountries(countries)
+
+      handleChangeCountries("")
     }
-  
+    
+    function handleSearch(value){
+      setSearchValue(value);
+      handleChangeCountries(value)
+    }
+
+    function handleOnChange(event) {
+      setSearchValue(event.target.value)
+    }
+
+
   
     return (
-      <div data-testid="search-container" >
-        <input value={value}  onChange={(e) => setValue(e.target.value)} />
-        <button onClick={handleClick}> Clique aqui</button>
-        <button onClick={clearSearch}> Limpar</button>
+      <div data-testid="search-container" className="search-container" >
+
+      <Search
+            onChange={handleOnChange}
+            value={searchValue}
+            placeholder="Pesquisar"
+            onSearch={handleSearch}
+            enterButton
+          />
+      <Button type="primary" onClick={handleClearSearch} > Limpar</Button>
+
       </div>
     )
   }
