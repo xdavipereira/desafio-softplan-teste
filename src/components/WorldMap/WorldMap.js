@@ -50,7 +50,7 @@ export default function WorldMap({ selectedCountry }) {
   return (
     <div className="map-container">
       <GoogleMapReact
-        bootstrapURLKeys={{ key: "AIzaSyA3dUl_1g8NcqWmas032wz1rGNsG4JISfI" }}
+        bootstrapURLKeys={{ key: process.env.REACT_APP_MAP_API }}
         defaultCenter={coordinates}
         defaultZoom={4}
         yesIWantToUseGoogleMapApiInternals
