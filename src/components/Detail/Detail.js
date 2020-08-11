@@ -4,7 +4,6 @@ import { gql, useQuery, useLazyQuery } from '@apollo/client';
 import "./Detail.scss";
 import CountryForm from '../CountryForm/CountryForm';
 import { Form, Input, Button, Checkbox, Modal } from 'antd';
-import { COUNTRY_QUERY_LOCATION_SERVER } from '../../operations/countryQueries';
 import WorldMap from '../WorldMap/WorldMap';
 import {useHistory} from 'react-router-dom';
 
@@ -53,32 +52,41 @@ export default function Home() {
 
 
     return (
-      <div  className="detail-container">
+      <div  className="detail-container container-margin">
 
 
           { showModal ? 
 
             <CountryForm showModal={showModal} handleCloseModal={handleCloseModal} /> : null
           }
-        <div className="detail-image-container">
-            <img src={data.selectedCountry.flag.svgFile} alt={data.selectedCountry.name} />
-          
-          </div>
-          <div>
-            <h1>{data.selectedCountry.name}</h1>
-            <p><b>Capiral: </b> {data.selectedCountry.capital}</p>
-            <p><b>Area: </b> {data.selectedCountry.area}</p>
-            <p><b>Population: </b> {data.selectedCountry.population}</p>
+          <div className="content-wrapper">
+            <div className="detail-image-container">
+                <img src={data.selectedCountry.flag.svgFile} alt={data.selectedCountry.name} />
+              
+              </div>
+              <div className="info-container">
+                <h1>{data.selectedCountry.name}</h1>
+                <p><b>Capiral: </b> {data.selectedCountry.capital}</p>
+                <p><b>Area: </b> {data.selectedCountry.area}</p>
+                <p><b>Population: </b> {data.selectedCountry.population}</p>
 
-            <p><b>Top Level Domain: </b>
-              {data.selectedCountry.topLevelDomains.map((topLevelDomain, index) => {
-                return (<span key={index}> {topLevelDomain.name}  </span>)
-              }) 
-            }
-            </p>
-          <Button type="primary" onClick={handleShowModal}>
-          Editar
-        </Button>
+                <p><b>Top Level Domain: </b>
+                  {data.selectedCountry.topLevelDomains.map((topLevelDomain, index) => {
+                    return (<span key={index}> {topLevelDomain.name}  </span>)
+                  }) 
+                }
+                </p>
+                <div className="buttons-container">
+                  <Button type="primary" onClick={handleShowModal}>
+                  Edit
+                </Button>
+                  <Button  onClick={handleNavigateToHome}>
+                  Back
+                </Button>
+
+                </div>
+              </div>
+
           </div>
             <WorldMap selectedCountry={data.selectedCountry}  />
       </div>

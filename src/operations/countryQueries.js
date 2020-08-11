@@ -7,7 +7,12 @@ query Country($name: String) {
     name,
     capital,
     area,
+    alpha2Code,
     population,
+    distanceToOtherCountries(first: 5) {
+      countryName,
+      distanceInKm
+    },
     location {
       longitude,
       latitude,
@@ -27,31 +32,18 @@ query Country($name: String) {
 
 `;
 
-export const COUNTRY_QUERY_LOCATION_SERVER = gql`
-query Country($name: String) {
-  countries: Country(filter: {name_contains: $name}) {
-			...location
-    borders {
+
+export const SHORTESTS_COUNTRIES_DISTANCE = gql`
+  query ShortetsCountries($countries: [String!]!) {
+    countries: Country(filter:{ name_in: $countries}) {
       _id,
       name,
-			...location
+      location {
+        latitude,
+        longitude
+      }
     }
-    distanceToOtherCountries(first: 5) {
-      distanceInKm
-      countryName,
     }
-
-  }
-}
-
-fragment location on Country {
-  location {
-    longitude,
-    latitude,
-    x,
-    y
-  },
-}
 `;
 
 

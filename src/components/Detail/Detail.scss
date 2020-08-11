@@ -1,20 +1,56 @@
 .detail-container {
-    width: 100%;
-    margin: 0 auto;
-    max-width: 800px;
-    padding: 40px 40px;
-    margin-top: -20px;
-    position: relative;
-    background: white;
-    border-radius: 5px;
-    padding: 40px 80px 60px 80px;
-    margin-bottom: 1.55rem;
+    display: flex;
+    flex-flow: column;
+ 
+
+    
 
 
+    .content-wrapper {
+        display: flex;
+        margin: 8em 0;
 
-    detail-image-container {
-        img {
-            height: 350px;
+        .detail-image-container{
+            width: 400px;
+            display: flex;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .info-container{
+            padding-left: 3em;
+
+            .buttons-container {
+                display: flex;
+                justify-content: space-evenly
+
+            }
         }
     }
+
 }
+
+.container-margin{
+    margin: 0 3em;
+}
+
+@media all and (min-width: 1600px ) {
+    .container-margin{
+        margin: 0 20em;
+    }
+  }
+
+  @media all and (min-width: 1200px ) {
+    .container-margin{
+        margin: 0 10em;
+    }
+  }
+
+@media all and (min-width: 768px ) {
+    .container-margin{
+        margin: 0 3em;
+    }
+    
+  }
