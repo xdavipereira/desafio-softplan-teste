@@ -4,6 +4,7 @@ import { countriesVar, selectedCountryVar } from '../../App';
 import { Form, Input, Button, Checkbox, Modal } from 'antd';
 import { SELECTED_COUNTRY_QUERY } from '../Detail/Detail';
 
+
 const layout = {
   labelCol: {
     span: 8,
@@ -18,6 +19,7 @@ const tailLayout = {
     span: 16,
   },
 };
+
 
 
  export default function CountryForm({handleCloseModal, showModal}) {

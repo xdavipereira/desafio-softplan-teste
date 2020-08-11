@@ -6,7 +6,7 @@ import { COUNTRY_QUERY_SERVER } from '../../operations/countryQueries';
 import { BrowserRouter, Route, Switch, Link} from 'react-router-dom'
 import List from '../List/List';
 import Detail from '../Detail/Detail';
-
+import useCountryService from '../../services/countryService'
 
 
 
@@ -17,8 +17,11 @@ export default function MainContainer () {
       }
     );
 
+    const {handleSetCountries, handleSetDefaultCountries} = useCountryService();
+
     function onQueryComplete(data) {
-      countriesVar(data.countries)
+      handleSetCountries(data.countries)
+      handleSetDefaultCountries(data.countries);
     }
 
     if (loading) return <p>Loading</p>;

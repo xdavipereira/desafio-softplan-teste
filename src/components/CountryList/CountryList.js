@@ -4,6 +4,8 @@ import './CountryList.scss';
 
 import { Card } from 'antd';
 import { selectedCountryVar } from "../../App";
+import useCountryService from '../../services/countryService'
+import CardCountry from "../CardCountry/CardCountry";
 
 const { Meta } = Card;
 
@@ -21,33 +23,4 @@ export default function CountryList({ countries }) {
         ))}
     </ol>
   );
-}
-
-
-function CardCountry({ country}) {
-  
-  const history = useHistory();
-
-  async function handleNavigateToDetail() {
-    
-    await handleSelectedCountry(country);
-    
-    history.push(`/country/${country.name}`)
-    
-  }
-
-  async function handleSelectedCountry(country){
-    await selectedCountryVar(country)
-  }
-
-  return (
-    <li className="country-container" onClick={handleNavigateToDetail} >
-      <Card
-        hoverable
-        cover={<img src={country.flag.svgFile} alt={country.name}></img>}
-      >
-        <Meta title={country.name} description={country.capital} />
-      </Card>
-    </li>
-  )
 }

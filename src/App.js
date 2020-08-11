@@ -7,6 +7,7 @@ import List from './components/List/List';
 import { BrowserRouter, Route, Switch, Link} from 'react-router-dom'
 import MainContainer from './components/MainContainer/MainContainer';
 
+export const defaultCountriesVar = makeVar([]);
 export const countriesVar = makeVar([]);
 export const selectedCountryVar = makeVar();
 
@@ -15,6 +16,11 @@ export const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
+        defaultCountries: {
+          read() {
+            return defaultCountriesVar();
+          }
+        },
         countries: {
           read() {
             return countriesVar();
