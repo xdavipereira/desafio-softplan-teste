@@ -8,7 +8,10 @@
 
     .content-wrapper {
         display: flex;
-        margin: 8em 0;
+        margin: 2em 0;
+        border: 1px solid #e5e5e5e5;
+        border-radius: 5px;
+        padding: 1em;
 
         .detail-image-container{
             width: 400px;

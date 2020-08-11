@@ -44,7 +44,7 @@ export default function SearchInput() {
       <Search
             onChange={handleOnChange}
             value={searchValue}
-            placeholder="Pesquisar"
+            placeholder="Search...."
             onSearch={handleSearch}
             enterButton
           />
