@@ -1,92 +1,75 @@
-import React, { useEffect } from 'react';
-import { useQuery } from '@apollo/client';
-import { countriesVar, selectedCountryVar } from '../../cache';
-import { Form, Input, Modal } from 'antd';
-import { SELECTED_COUNTRY_QUERY } from '../Detail/Detail';
+import React, { useEffect } from "react";
+import { useQuery } from "@apollo/client";
+import { countriesVar, selectedCountryVar } from "../../cache";
+import { Form, Input, Modal } from "antd";
+import { SELECTED_COUNTRY_QUERY } from "../Detail/Detail";
 
+export default function CountryForm({ handleCloseModal, showModal }) {
+  const { loading, error, data } = useQuery(SELECTED_COUNTRY_QUERY);
+  const [form] = Form.useForm();
 
-
-
-
-
- export default function CountryForm({handleCloseModal, showModal}) {
-     const {loading, error, data} = useQuery(
-         SELECTED_COUNTRY_QUERY
-         );
-         const [form] = Form.useForm();
-         
   useEffect(() => {
-    console.log(data)
     form.setFieldsValue({
-        ...data.selectedCountry
-    })
-
-})
-  
-
-
-
-
+      ...data.selectedCountry
+    });
+  });
 
   function onOk() {
     form.submit();
   }
 
-  function  onFinish (values) {
-    const y = countriesVar();
-    const x = selectedCountryVar();
+  function onFinish(values) {
+    const countries = countriesVar();
+    const selectedCountry = selectedCountryVar();
 
-    const updatedCountry = Object.assign({}, x, {
+    const updatedCountry = Object.assign({}, selectedCountry, {
       name: values.name,
       capital: values.capital
-    })
+    });
 
-
-    const updatedCountries = y.map((country) => {
-      if(country._id === x._id ){
+    const updatedCountries = countries.map(country => {
+      if (country._id === selectedCountry._id) {
         country = updatedCountry;
       }
       return country;
-    })
-    
-    countriesVar([...updatedCountries])
-    selectedCountryVar(updatedCountry)
+    });
+
+    countriesVar([...updatedCountries]);
+    selectedCountryVar(updatedCountry);
 
     handleCloseModal();
-  };
+  }
 
   const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo);
   };
 
   return (
-
-    <Modal title="Edit Country" destroyOnClose={true} visible={showModal} onOk={onOk} onCancel={handleCloseModal}>
-    <Form
-     form={form} layout="vertical" preserve={false} name="userForm"
-      initialValues={{
-          ...data.selectedCountry
-      }}
-
-      onFinishFailed={onFinishFailed}
-      onFinish={onFinish}
+    <Modal
+      title="Edit Country"
+      destroyOnClose={true}
+      visible={showModal}
+      onOk={onOk}
+      onCancel={handleCloseModal}
     >
-      <Form.Item
-        label="Name"
-        name="name"
+      <Form
+        form={form}
+        layout="vertical"
+        preserve={false}
+        name="userForm"
+        initialValues={{
+          ...data.selectedCountry
+        }}
+        onFinishFailed={onFinishFailed}
+        onFinish={onFinish}
       >
-        <Input />
-      </Form.Item>
+        <Form.Item label="Name" name="name">
+          <Input />
+        </Form.Item>
 
-      <Form.Item
-        label="Capital"
-        name="capital"
-      >
-        <Input  />
-      </Form.Item>
-    </Form>
-  </Modal>
-
-    )
+        <Form.Item label="Capital" name="capital">
+          <Input />
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
 }
-
