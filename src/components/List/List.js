@@ -6,11 +6,12 @@ import { COUNTRIES_QUERY } from "../../operations/countryQueries";
 import Search from "../Search/Search";
 
 export default function List() {
-  const {  data } = useQuery(COUNTRIES_QUERY);
+  const {  data, loading, error } = useQuery(COUNTRIES_QUERY);
 
-  useEffect(() => {
-    console.log(data);
-  });
+ 
+  if (loading) return <p>Loading</p>;
+  if (error) return <p role="alert">Error</p>;
+
 
   return (
     <div data-testid="country-card">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {useHistory} from 'react-router-dom';
 import './CardCountry.scss';
 
@@ -7,23 +7,16 @@ import useCountryService from '../../services/countryService'
 
 const { Meta } = Card;
 
-export default function CardCountry({ country}) {
-  
-  const history = useHistory();
-  const {handleSelectedCountry } = useCountryService();
+export default function CardCountry({ onNavigateToDetail, country}) {
 
-   function handleNavigateToDetail() {
-    
-    handleSelectedCountry(country);
-    
-    history.push(`/country/${country.name}`)
-    
+
+  function handleNavigateToDetail() {
+      onNavigateToDetail(country)
   }
 
 
-
   return (
-    <li className="country-container" onClick={handleNavigateToDetail} >
+    <li className="country-container" data-testid="country-item" onClick={handleNavigateToDetail} >
       <Card
         hoverable
         cover={<img src={country.flag.svgFile} alt={country.name}></img>}

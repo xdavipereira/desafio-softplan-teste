@@ -8,33 +8,39 @@ import {
   getAllByTestId,
   waitForElementToBeRemoved
 } from "@testing-library/react";
-import List, { COUNTRY_QUERY } from "./List";
+import List from "./List";
 import { MockedProvider } from "@apollo/client/testing";
+import { COUNTRIES_QUERY } from "../../operations/countryQueries";
 
 const mocks = [
   {
     request: {
-      query: COUNTRY_QUERY
+      query: COUNTRIES_QUERY
     },
     result: {
-      data: [
-        {
-          name: "Afghanistan",
-          flag: {
-            emoji: "🇦🇫"
-          }
+      data: {
+        countries: () => {
+          return [];
         }
-      ]
+      }
     }
   }
 ];
+const resolvers = {
+  Query: {
+    countries: () => {
+      return [];
+    },
+    error: new Error("Error")
+  }
+};
 
 describe("List", () => {
   let containerWrapper;
 
   beforeEach(() => {
     const { container } = render(
-      <MockedProvider mocks={mocks} addTypename={false}>
+      <MockedProvider mocks={mocks} resolvers={resolvers} addTypename={false}>
         <List />
       </MockedProvider>
     );
@@ -50,15 +56,20 @@ describe("List", () => {
   });
 
   it("should show a message of error", async () => {
-    const queryErrorMock = {
-      request: {
-        query: COUNTRY_QUERY
+
+    const resolvers = {
+      Query: {
+        countries: new Error("Error")
       },
-      error: new Error("Error")
+
+      error: new Error("")
     };
 
     const { container } = render(
-      <MockedProvider mocks={[queryErrorMock]} addTypename={false}>
+      <MockedProvider
+        resolvers={resolvers}
+        addTypename={false}
+      >
         <List />
       </MockedProvider>
     );

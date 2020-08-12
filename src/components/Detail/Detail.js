@@ -5,6 +5,8 @@ import CountryForm from "../CountryForm/CountryForm";
 import { Button } from "antd";
 import WorldMap from "../WorldMap/WorldMap";
 import { useHistory } from "react-router-dom";
+import { withRouter } from 'react-router'
+
 
 export const SELECTED_COUNTRY_QUERY = gql`
   query CountriesQuery {
@@ -12,7 +14,8 @@ export const SELECTED_COUNTRY_QUERY = gql`
   }
 `;
 
-export default function Home() {
+
+function  Detail({ location }) {
   const history = useHistory();
 
   const { error, data } = useQuery(SELECTED_COUNTRY_QUERY);
@@ -43,7 +46,7 @@ export default function Home() {
   if (error) return <p role="alert">Error</p>;
 
   return (
-    <div className="detail-container container-margin">
+    <div data-testid="detail-container"  className="detail-container container-margin">
       {showModal ? (
         <CountryForm
           showModal={showModal}
@@ -89,3 +92,7 @@ export default function Home() {
     </div>
   );
 }
+
+
+
+export default withRouter(Detail)
